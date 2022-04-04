@@ -70,10 +70,10 @@ Beyond providing relationships with players and a board, the Game instance must 
 
 'players/computer.py'
 Define a class Computer that represents a computer player of Tic-tac-toe. Implement a #move method that accepts a board and returns the move the computer wants to make in the form of a 1-9 string. How the computer decides to make that move is up to you but it must be capable of returning a valid move at some point.
-
+```
 def move(board):
   "1"
-
+```
 Returns a valid move for the first move but after that your program will go into an infinite loop because the computer will constantly try to occupy the "1" position in the board even though it is already occupied. So don't do that.
 
 Think about the levels of intelligence you can build into this method. Start with the simplest level of intelligence, and get more and more complicated. Each step of the way you should have a working computer player though.
