@@ -1,2 +1,3 @@
 class Player:
-  pass
+    def __init__(self, token):
+      self.token = token
