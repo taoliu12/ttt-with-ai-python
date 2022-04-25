@@ -56,32 +56,51 @@ class Game:
                 return 5
             else:
                 for combo in self.win_combos:
-                    if self.best_move(combo): 
+                    test_move = self.best_move(combo)
+                    if test_move: 
                         print(f'test combo')
                         breakpoint()
-                        if self.board.moves[combo[0]] == " ":
-                            print('returning 1st')
-                            return combo[0]
-                        elif self.board.moves[combo[1]] == " ":
-                            print('returning 2nd')
-                            return combo[1]
-                        else:
-                            print('returning 3rd')
-                            return combo[2]
+                        # if self.board.moves[combo[0]] == " ":
+                        #     print('returning 1st')
+                        #     return combo[0]
+                        # elif self.board.moves[combo[1]] == " ":
+                        #     print('returning 2nd')
+                        #     return combo[1]
+                        # else:
+                        #     print('returning 3rd')
+                        #     return combo[2]
+                        print(f'Test move: {test_move}')
+                        return test_move + 1
+
                 breakpoint()
                 return 4
                 # pass
     
     def best_move(self, combo):
-        if (self.board.moves[combo[0]] == self.board.moves[combo[1]] 
-        or self.board.moves[combo[1]] == self.board.moves[combo[2]] 
-        or self.board.moves[combo[0]] == self.board.moves[combo[2]]) and (
-            self.board.moves[combo[0]] == self.current_player().token 
-        or self.board.moves[combo[1]] == self.current_player().token):
+        if ((self.board.moves[combo[0]] == self.board.moves[combo[1]] and self.board.moves[combo[0]] == self.current_player().token) 
+        or (self.board.moves[combo[1]] == self.board.moves[combo[2]] and self.board.moves[combo[1]] == self.current_player().token) 
+        or (self.board.moves[combo[0]] == self.board.moves[combo[2]] and self.board.moves[combo[0]] == self.current_player().token)) :
             print(f'combo: {combo}')
-            return combo
+            if self.board.moves[combo[0]] == " ":
+                print('returning 1st')
+                return combo[0]
+            elif self.board.moves[combo[1]] == " ":
+                print('returning 2nd')
+                return combo[1]
+            else:
+                print('returning 3rd')
+                return combo[2]
         else:
-            return False
+            if self.board.moves[combo[0]] == self.current_player().token or self.board.moves[combo[2]] == self.current_player().token:
+                print(combo[1])
+                return combo[1]
+            elif self.board.moves[combo[1]] == self.current_player().token:
+                print(combo[2])
+                return combo[2]
+            else:
+                print('false')
+                return False
+
 
     def play(self):
         while True:
