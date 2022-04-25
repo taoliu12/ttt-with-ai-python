@@ -1,5 +1,7 @@
+from bdb import Breakpoint
 from board import Board
-from player import Player
+from players.human import Human
+from players.computer import Computer
 
 class Game:
     def __init__(self, num):
@@ -22,11 +24,11 @@ class Game:
         for token in tokens:
             if num > 0:
                 print("making a human")
-                self.players.append(Player(token))
+                self.players.append(Human(token))
                 num -= 1
             else:
                 print("making a computer")
-                self.players.append(Player(token))
+                self.players.append(Computer(token))
                 num -= 1
              
 
@@ -34,21 +36,52 @@ class Game:
         return self.players[0] if (self.board.moves.count("X") + self.board.moves.count("O")) % 2 ==0 else self.players[1]
 
     def ask_user(self):
-        message = "What is your move?  Pick empty square 1-9:   "
-        pick = input(message)
-        print(' ')
+        if self.current_player().type == "human": 
+            message = "What is your move?  Pick empty square 1-9:   "
+            pick = input(message)
+            print(' ')
 
-        while pick != "exit":
+            while pick != "exit":
 
-            if int(pick) > 0 and int(pick) < 10 and self.board.moves[int(pick)-1] == ' ' : 
-                return pick
+                if int(pick) > 0 and int(pick) < 10 and self.board.moves[int(pick)-1] == ' ' : 
+                    return pick
+                else:
+                    message = "That was not an allowed move - Pick empty square 1-9:   "
+                    pick = input(message)
+                    print(' ')
+                
+            return pick
+        else:
+            if self.board.moves.count("X") + self.board.moves.count("O") == 0:
+                return 5
             else:
-                message = "That was not an allowed move - Pick empty square 1-9:   "
-                pick = input(message)
-                print(' ')
-            
-        return pick
+                for combo in self.win_combos:
+                    if self.best_move(combo): 
+                        print(f'test combo')
+                        breakpoint()
+                        if self.board.moves[combo[0]] == " ":
+                            print('returning 1st')
+                            return combo[0]
+                        elif self.board.moves[combo[1]] == " ":
+                            print('returning 2nd')
+                            return combo[1]
+                        else:
+                            print('returning 3rd')
+                            return combo[2]
+                breakpoint()
+                return 4
+                # pass
     
+    def best_move(self, combo):
+        if (self.board.moves[combo[0]] == self.board.moves[combo[1]] 
+        or self.board.moves[combo[1]] == self.board.moves[combo[2]] 
+        or self.board.moves[combo[0]] == self.board.moves[combo[2]]) and (
+            self.board.moves[combo[0]] == self.current_player().token 
+        or self.board.moves[combo[1]] == self.current_player().token):
+            print(f'combo: {combo}')
+            return combo
+        else:
+            return False
 
     def play(self):
         while True:

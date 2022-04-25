@@ -1,6 +1,6 @@
 class Player:
-    def __init__(self, token):
-      self.token = token
+    def __init__(self):
+      pass
 
 
     
