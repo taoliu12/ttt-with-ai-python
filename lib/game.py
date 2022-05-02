@@ -105,12 +105,7 @@ class Game:
                 for index in combo:
                     if self.board.moves[index] == " ":
                         return index
-                # if self.board.moves[combo[0]] == " ":
-                #     return combo[0]
-                # elif self.board.moves[combo[1]] == " ":
-                #     return combo[1]
-                # else:
-                #     return combo[2]
+
             elif self.combo_count(combo, self.current_player().token) == 1:
                     if self.board.moves[combo[0]] == self.current_player().token:
                         return combo[2]
