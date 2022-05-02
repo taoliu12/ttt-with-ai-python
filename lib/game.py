@@ -60,16 +60,21 @@ class Game:
                 return 5
             else:
                 for combo in self.win_combos:
-                    test_move = self.best_move(combo)
-                    if test_move: 
-                        return test_move + 1
+                    if self.combo_count(combo, self.current_player().token) == 2: 
+                       for i in combo:
+                           if self.board.moves[i] == " ":
+                               print('two of mine', combo)
+                               return i + 1
                 for combo in self.win_combos:
                    if self.combo_count(combo, self.other_player().token) == 2: 
                        for i in combo:
                            if self.board.moves[i] == " ":
                                print('two of other player', combo)
                                return i + 1
-
+                for combo in self.win_combos:
+                    test_move = self.best_move(combo)
+                    if test_move: 
+                        return test_move + 1
                 
                 
                 index = random.randint(0, 8)
