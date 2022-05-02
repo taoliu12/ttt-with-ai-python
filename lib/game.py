@@ -60,15 +60,16 @@ class Game:
                 return 5
             else:
                 for combo in self.win_combos:
+                    test_move = self.best_move(combo)
+                    if test_move: 
+                        return test_move + 1
+                for combo in self.win_combos:
                    if self.combo_count(combo, self.other_player().token) == 2: 
                        for i in combo:
                            if self.board.moves[i] == " ":
                                print('two of other player', combo)
                                return i + 1
-                for combo in self.win_combos:
-                    test_move = self.best_move(combo)
-                    if test_move: 
-                        return test_move + 1
+
                 
                 
                 index = random.randint(0, 8)
@@ -79,17 +80,37 @@ class Game:
                 print("random move:", index +1)
                 return index + 1
                 # pass
+
+    # def get_combo_index_of_the_blank(self, combo):
+
+
+    # have all moves and positions of 3 moves
+    # look at values at the 3 positions
+    # find the one that is blank 
+    # return the index of that blank
+
+    # combo.each
+    #      if self.board.moves[combo[0]] == " ":
+    #                 return combo[0]
+    #             elif self.board.moves[combo[1]] == " ":
+    #                 return combo[1]
+    #             else:
+    #                 return combo[2]
     
+
     def best_move(self, combo):
         if self.combo_count(combo, self.other_player().token) == 0:
             if self.combo_count(combo, self.current_player().token) == 2:
                 print(f'combo: {combo}')
-                if self.board.moves[combo[0]] == " ":
-                    return combo[0]
-                elif self.board.moves[combo[1]] == " ":
-                    return combo[1]
-                else:
-                    return combo[2]
+                for index in combo:
+                    if self.board.moves[index] == " ":
+                        return index
+                # if self.board.moves[combo[0]] == " ":
+                #     return combo[0]
+                # elif self.board.moves[combo[1]] == " ":
+                #     return combo[1]
+                # else:
+                #     return combo[2]
             elif self.combo_count(combo, self.current_player().token) == 1:
                     if self.board.moves[combo[0]] == self.current_player().token:
                         return combo[2]
