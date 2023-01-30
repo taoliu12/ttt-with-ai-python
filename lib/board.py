@@ -2,6 +2,8 @@ class Board:
   def __init__(self):
       self.moves = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 
+  
+
   def print_board(self):
     print('   |   |   ')
     print(f' {self.moves[0]} | {self.moves[1]} | {self.moves[2]} ')
@@ -15,3 +17,6 @@ class Board:
     print(f' {self.moves[6]} | {self.moves[7]} | {self.moves[8]} ')
     print('   |   |   ')
     print(' ')
+
+  # def normal_or_bold_text(text)
+  #    pass

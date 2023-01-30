@@ -3,6 +3,7 @@ from board import Board
 from players.human import Human
 from players.computer import Computer
 import random
+import time
 
 class Game:
     def __init__(self, num):
@@ -75,8 +76,7 @@ class Game:
                     test_move = self.best_move(combo)
                     if test_move: 
                         return test_move + 1
-                
-                
+                  
                 index = random.randint(0, 8)
                 count = 0
                 while self.board.moves[index] != " ":
@@ -144,6 +144,9 @@ class Game:
                 break
         
     def move(self, pick):
+        if self.current_player().type == "computer":
+            print(f"AI Player {self.current_player().token} is plotting their move...")
+            time.sleep(1)
         self.board.moves[int(pick) - 1] = self.current_player().token
 
     def check_winners(self):

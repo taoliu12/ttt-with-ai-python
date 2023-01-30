@@ -14,7 +14,7 @@ class Cli:
             num = -1
             while num < 0 or num > 2:
               print("")
-              print("please enter 0-2")
+              print('\033[92m' + "please enter 0-2" + '\033[0m')
               print("")
               num = int(input('How many Humans are playing this game?  '))
               print("") 
